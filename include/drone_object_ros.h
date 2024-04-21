@@ -29,6 +29,8 @@ public:
   ros::Publisher pubPosCtrl;
   ros::Publisher pubVelMode;
 
+  std::string namespace_;
+
   geometry_msgs::Twist twist_msg;
 
   void initROSVars(ros::NodeHandle &node);

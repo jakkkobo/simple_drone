@@ -39,14 +39,6 @@ void DroneSimpleController::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
   world = _model->GetWorld();
   ROS_INFO("The drone plugin is loading!");
   
-  //load parameters
-  cmd_normal_topic_ = "/cmd_vel";
-  takeoff_topic_ = "drone/takeoff";
-  land_topic_ = "drone/land";
-  reset_topic_ = "drone/reset";
-  posctrl_topic_ = "drone/posctrl";
-  gt_topic_ = "drone/gt_pose";
-  switch_mode_topic_ = "/drone/vel_mode";
   
   if (!_sdf->HasElement("imuTopic"))
     imu_topic_.clear();
@@ -98,6 +90,22 @@ void DroneSimpleController::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 
   node_handle_ = new ros::NodeHandle;
   
+  ///// ADDED
+  node_handle_->getParam("/robotNamespace", namespace_);
+  
+  //load parameters
+  cmd_normal_topic_ = namespace_ + "/cmd_vel";
+  takeoff_topic_ = namespace_ + "/drone/takeoff";
+  land_topic_ = namespace_ + "/drone/land";
+  reset_topic_ = namespace_ + "/drone/reset";
+  posctrl_topic_ = namespace_ + "/drone/posctrl";
+  gt_topic_ = namespace_ + "/drone/gt_";
+  switch_mode_topic_ = namespace_ + "/drone/vel_mode";
+  imu_topic_ = namespace_ + "/drone/imu";
+
+  // link_name_ = namespace_ + link_name_;
+  // link = boost::dynamic_pointer_cast<physics::Link>(world->EntityByName(link_name_));
+  //////
 
   // subscribe command: control command
   if (!cmd_normal_topic_.empty())
@@ -179,11 +187,13 @@ void DroneSimpleController::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
   }
   
   if (!gt_topic_.empty()){
-      pub_gt_pose_ = node_handle_->advertise<geometry_msgs::Pose>("drone/gt_pose",1024);    
+    pub_gt_pose_ = node_handle_->advertise<geometry_msgs::Pose>(gt_topic_ + "pose",1024);
+    pub_gt_vec_ = node_handle_->advertise<geometry_msgs::Twist>(gt_topic_ + "vel", 1024);
+    pub_gt_acc_ = node_handle_->advertise<geometry_msgs::Twist>(gt_topic_ + "acc", 1024);    
   }
   
-  pub_gt_vec_ = node_handle_->advertise<geometry_msgs::Twist>("drone/gt_vel", 1024);
-  pub_gt_acc_ = node_handle_->advertise<geometry_msgs::Twist>("drone/gt_acc", 1024);
+  
+  
   
   
   if (!switch_mode_topic_.empty()){

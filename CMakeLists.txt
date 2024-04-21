@@ -62,8 +62,10 @@ set_target_properties( plugin_ros_init
 add_library( plugin_drone SHARED
     src/plugin_drone.cpp
     src/pid_controller.cpp
+    # src/plugin_ros_imu.cpp
     include/plugin_drone.h
     include/pid_controller.h
+    # include/plugin_ros_imu.h
 )
 
 target_link_libraries( plugin_drone

@@ -127,7 +127,7 @@ void GazeboRosIMU::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
     frameId = _sdf->GetElement("frameId")->Get<std::string>();
 
   if (!_sdf->HasElement("topicName"))
-    topicName = "imu";
+    topicName = "/imu";
   else
     topicName = _sdf->GetElement("topicName")->Get<std::string>();
 
@@ -179,7 +179,7 @@ void GazeboRosIMU::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
   }
 
   node_handle_ = new ros::NodeHandle(robotNamespace);
-
+  
   // if topic name specified as empty, do not publish (then what is this plugin good for?)
   if (!topicName.empty())
     pub_ = node_handle_->advertise<sensor_msgs::Imu>(topicName, 1);

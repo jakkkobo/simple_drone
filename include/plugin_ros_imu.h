@@ -114,6 +114,7 @@ namespace gazebo
 
       /// \brief topic name
       std::string topicName;
+      std::string namespace_;
 
       /// \brief Sensor models
       SensorModel3 accelModel;

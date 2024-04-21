@@ -87,6 +87,7 @@ private:
   ignition::math::Vector3d euler, velocity, acceleration, angular_velocity, position;
 
   std::string link_name_;
+  std::string namespace_;
   std::string cmd_normal_topic_;
   std::string switch_mode_topic_;
   std::string posctrl_topic_;

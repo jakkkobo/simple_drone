@@ -1,0 +1,30 @@
+<launch>
+
+    <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+    <arg name="paused" value="false"/>
+    <arg name="verbose" value="true"/>
+    <!-- <arg name="ign_ip" value="127.0.0.1"/> -->
+
+    <arg name="ID" default="0"/>
+
+    <group ns="uav_$(arg ID)">
+    <!-- launch the custom world -->
+       <include file="$(find gazebo_ros)/launch/empty_world.launch" >
+            <arg name="paused" value="$(arg paused)"/>
+            <arg name="verbose" value="$(arg verbose)"/>
+            <arg name="world_name" value="$(find sjtu_drone)/worlds/empty_with_drone.world"/>
+        </include>
+
+    </group>
+
+    <!-- <include file="$(find gazebo_ros)/launch/empty_world.launch" >
+        <arg name="paused" value="$(arg paused)"/>
+        <arg name="verbose" value="$(arg verbose)"/>
+    </include> -->
+
+    <!-- launch of the robot model -->
+    <!-- <include file="$(find sjtu_drone)/launch/spawn_robot.launch" >
+        <arg name="ID" value="$(arg ID)"/>
+    </include>  -->
+
+</launch>
