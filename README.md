@@ -35,6 +35,8 @@ In second terminal:
 ```
 $ rosrun sjtu_drone drone_keyboard
 ```
-# Implementation
+# Implementation - Multi UAV
+
+![](https://github.com/jakkkobo/simple_drone/blob/master/multi_uav.png)
 
 
