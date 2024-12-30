@@ -6,6 +6,7 @@ This respository is an adaptation of ['stju_drone'] (https://github.com/NovoG93/
 This package is compatible with ROS Noetic version (Ubuntu 20.04). Compatible with Gazebo 11
 ```
 $ sudo apt-get install ros-noetic-desktop
+$ sudo apt-get install libignition-math4-dev
 ```
 # Download and Compiling #
 ```
